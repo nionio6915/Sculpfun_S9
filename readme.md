@@ -1,5 +1,6 @@
 Adding endstops / homing switches to Sculpfun S9 Laser Engraver
-
+12/19/2021 This is a continual work in progress. Information may change and be reevised without notice. As with anyhithing you fin don the interwebs, your mileage may vary and there are altering any electronic components have inherent risks.
+  
 Why: repeatabilty and consistency. For my use, I need a consistent and repratable start posistion for my work. I have a stop/fence on the spoils baord and I justify and clamp the work to it. 
 
 If you are jus tossing some random thing under the laser and etching pretty pictures, this is prpbably not going to matter to you. 
