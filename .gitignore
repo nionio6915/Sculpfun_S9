@@ -1,3 +1,5 @@
 .git-ignore/*
 *.xcf
+*.gcode
+*.ksp
 _SYNCAPP/metadata.xml
