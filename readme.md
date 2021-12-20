@@ -1,12 +1,15 @@
 Adding endstops / homing switches to Sculpfun S9 Laser Engraver
-12/19/2021 This is a continual work in progress. Information may change and be reevised without notice. As with anyhithing you fin don the interwebs, your mileage may vary and there are altering any electronic components have inherent risks.
+12/19/2021 This is a continual work in progress. Information may change and be revised without notice. As with anythithing you find  on the interwebs, your mileage may vary and with altering any electronic components, there are inherent risks.
   
 Why: repeatabilty and consistency. For my use, I need a consistent and repratable start posistion for my work. I have a stop/fence on the spoils baord and I justify and clamp the work to it. 
 
-If you are jus tossing some random thing under the laser and etching pretty pictures, this is prpbably not going to matter to you. 
+If you are just tossing some random thing under the laser and etching pretty pictures, this is prpbably not going to matter to you. 
 
 1. Print the endstop brackets. There are 2 versions for each of the X & Y axis. One is for reprap 3-wire types, and one for miniature and sub-miniature SPDT snap action switches.  
-See https://reprap.org/wiki/Mechanical_Endstop for descritions. 
+Only the non-LED illuminated Reprap endstop switch will work. See https://reprap.org/wiki/Mechanical_Endstop for descriptions.   
+See this page for wiring limit switchs to 2-axis system with grbl.  
+https://github.com/gnea/grbl/wiki/Two-Axis-System-Considerations and  
+https://github.com/gnea/grbl/wiki/Wiring-Limit-Switches  
 
 2. Mount the brackets. Each bracket requires an M5x8 screw and a 'hammernut' to twist into the extrusion channel.
 
