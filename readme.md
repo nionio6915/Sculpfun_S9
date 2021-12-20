@@ -5,14 +5,15 @@ Why: repeatabilty and consistency. For my use, I need a consistent and repratabl
 
 If you are jus tossing some random thing under the laser and etching pretty pictures, this is prpbably not going to matter to you. 
 
-1. Print the endstop brackets. There are 2 versions for each of the X & Y axis. One is for reprap 3-wire LED illuminated types, and one fo miniture and sub-miniture SPDT snap action switches.  
-See https://reprap.org/wiki/Mechanical_Endstop for examples
+1. Print the endstop brackets. There are 2 versions for each of the X & Y axis. One is for reprap 3-wire types, and one for miniature and sub-miniature SPDT snap action switches.  
+See https://reprap.org/wiki/Mechanical_Endstop for descritions. 
 
-2. Mount the brackets. Each bracket requires an M5x8 screw and 'hammernut' the twist in extrusion cannel nut.
+2. Mount the brackets. Each bracket requires an M5x8 screw and a 'hammernut' to twist into the extrusion channel.
 
 3. Wire the endstops to the controller. Depending on where you mount the endstops, you will need 1m or 2m of 3-wire cable and connectors.  The DLC board uses 3-pin JST XH connectors.
 
 4. Upload the updated firmware that has the homing function compiled into it. 
+Using either LAsergrbl or Lightburn, flash the firmware to the controller. 
 
 5. Configure grbl to recognize the switches and the homing direction. 
 
@@ -23,42 +24,7 @@ pay particular attention to the secion the invert mask and corresponding table.
 
 https://github.com/gnea/grbl/wiki/Grbl-v1.1-Configuration#2--step-port-invert-mask
 
-This is the stock grbl EEPROM parameter set for an S9 with DLC version 1.0 controller, grbl version 1.1f. 
-
-$0=10 (Step pulse time)  
-$1=25 (Step idle delay)  
-$2=0 (Step pulse invert)   
-$3=0 (Step direction invert)  
-$4=0 (Invert step enable pin)  
-$5=0 (Invert limit pins)   
-$6=0 (Invert probe pin)   
-$10=1 (Status report options)   
-$11=0.010 (Junction deviation)   
-$12=0.002 (Arc tolerance)   
-$13=0 (Report in inches)   
-$20=0 (Soft limits enable)  
-$21=0 (Hard limits enable)   
-$22=0 (Homing cycle enable)  
-$23=0 (Homing direction invert)     
-$24=25.000 (Homing locate feed rate)   
-$25=500.000 (Homing search seek rate)   
-$26=250 (Homing switch debounce delay)   
-$27=1.000 (Homing switch pull-off distance)   
-$30=1000 (Maximum spindle speed)   
-$31=0 (Minimum spindle speed)   
-$32=1 (Laser-mode enable)   
-$100=80.000 (X-axis travel resolution)    
-$101=80.000 (Y-axis travel resolution)   
-$102=250.000 (Z-axis travel resolution)   
-$110=6000.000 (X-axis maximum rate)   
-$111=6000.000 (Y-axis maximum rate)   
-$112=1000.000 (Z-axis maximum rate)   
-$120=1000.000 (X-axis acceleration)   
-$121=1000.000 (Y-axis acceleration)   
-$122=10.000 (Z-axis acceleration)   
-$130=410.000 (X-axis maximum travel)   
-$131=400.000 (Y-axis maximum travel)   
-$132=200.000 (Z-axis maximum travel)   
+These are the stock grbl EEPROM parameters for an S9 with DLC version 1.0 controller, grbl version 1.1f as shipped, and with the updates after flashing the .hex file to 1.1h. 
 
 | Orignal grbl 1.1f settings |   |                | Updated grbl 1.1h settings |         |              |                                 |                                                                                    |
 |----------------------------|---|----------------|----------------------------|---------|--------------|---------------------------------|------------------------------------------------------------------------------------|
@@ -97,6 +63,28 @@ $132=200.000 (Z-axis maximum travel)
 | $130                       | = | 410            | 410                        |         | mm           | X-axis maximum travel           |                                                                                    |
 | $131                       | = | 400            | 400                        |         | mm           | Y-axis maximum travel           |                                                                                    |
 | $132                       | = | 200            | 200                        |         | mm           | Z-axis maximum travel           |                                                                                    |
+
+
+This is the invert mask from the grbl firmware. grbl default moves are to the MAX directions on each axis. Any direction change casued by the machine configuration needs to be set in the firmware with one of the following masks by setting the integer value in the table.  
+
+| Setting Value | Mask     | Invert X | Invert Y | Invert Z |
+|---------------|----------|----------|----------|----------|
+| 0             | 00000000 | N        | N        | N        |
+| 1             | 00000001 | Y        | N        | N        |
+| 2             | 00000010 | N        | Y        | N        |
+| 3             | 00000011 | Y        | Y        | N        |
+| 4             | 00000100 | N        | N        | Y        |
+| 5             | 00000101 | Y        | N        | Y        |
+| 6             | 00000110 | N        | Y        | Y        |
+| 7             | 00000111 | Y        | Y        | Y        |
+
+
+The hooming switches in the Sculpfun instructions were are Xmin & Ymin, so the configration mask was "3"- 
+  X Invert  Y Invert   Z Normal
+Homing switches in this deployment are located at Xmax & Ymin so we must adjust the values accordindly to "2"
+  X Normal  Y Invert  Z Normal 
+
+
 
 6. Websites with good grbl info
 
